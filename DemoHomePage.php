@@ -33,6 +33,7 @@
 
 <html>
 <head>
+
 <style>
 .dropbtn {
     position: relative;
@@ -82,15 +83,19 @@
 </style>
 </head>
 <body>
+
   <?php
   session_start();
-  $name=$_SESSION['email'];
+  //$email=$_SESSION['email'];
+  $name="change this !";
+  //$name=$_SESSION['name'];
   ?>
 
 <div class="dropdown">
 <button onclick="myFunction()" class="dropbtn"> <font size='3'>My Account</font></button>
   <div id="myDropdown" class="dropdown-content">
     <a href="profile.php"><font size='2.5'>Profile</font></a>
+    <a href="edit_profile.php"><font size='2.5'>Edit Profile</font></a>
     <a href="#about"><font size='2.5'>Logout</font></a>
   </div>
 </div>
