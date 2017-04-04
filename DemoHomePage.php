@@ -1,39 +1,25 @@
-<!--
-<html>
-<?php
-/*
-  session_start();
-  echo "Welcome ! ".$_SESSION['email'] ;
-*/
-?>
-</html>
--->
-<!--
 <html>
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <div class="container">
-    <div class="dropdown">
-      <button class="" type="button" data-toggle="dropdown">City
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Mumbai</a></li>
-        <li><a href="#">Delhi</a></li>
-      </ul>
-    </div>
-  </div>
-</body>
-</html>
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 -->
+  <!-- Plugin CSS -->
+  <!--
+  *********************************************************************************
+  <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">-->
 
-<html>
-<head>
+  <!-- Theme CSS -->
+  <link href="css/creative2.min.css" rel="stylesheet">
+
 <style>
+body{
+  background-color: black;
+  background-image: url(../img/abcd.jpg);
+}
 .dropbtn {
     position: relative;
     top: 0px;
@@ -42,7 +28,7 @@
     height: 40px;
     background-color: #4CAF50;
     color: white;
-    padding: 12px;
+    padding: 10px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -82,18 +68,26 @@
 </style>
 </head>
 <body>
+
+  </br>
+  </br>
+
   <?php
   session_start();
-  $name=$_SESSION['email'];
+  $email=$_SESSION['email'];
+  $name="change this !";
+  //$name=$_SESSION['name'];
+
   ?>
 
-<div class="dropdown">
-<button onclick="myFunction()" class="dropbtn"> <font size='3'>My Account</font></button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="profile.php"><font size='2.5'>Profile</font></a>
-    <a href="#about"><font size='2.5'>Logout</font></a>
+  <div class="dropdown">
+    <button onClick="myFunction()" class="dropbtn">My Account</button>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="profile.php"><font size='2.5'>Profile</font></a>
+      <a href="edit_profile.php"><font size='2.5'>Edit Profile</font></a>
+      <a href="#about"><font size='2.5'>Logout</font></a>
+    </div>
   </div>
-</div>
 
 <script>
 /* When the user clicks on the button,
@@ -103,6 +97,7 @@ function myFunction() {
 }
 
 // Close the dropdown if the user clicks outside of it
+
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
 
@@ -117,6 +112,20 @@ window.onclick = function(event) {
   }
 }
 </script>
+
+<!-- jQuery -->
+<script src="vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>-->
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+<!-- Theme JavaScript -->
+<script src="js/creative.min.js"></script>
 
 </body>
 </html>
