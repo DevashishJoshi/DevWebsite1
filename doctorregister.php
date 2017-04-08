@@ -40,25 +40,26 @@
             $user='root';
             $passw='';
             $database='testDB';
+
             $con=mysqli_connect('localhost',$user,$passw,$database) or die("Error could not connect to DB");
+            $sqlid="SELECT DoctorID FROM `doctor` order by DoctorID desc limit 1;";
+            $resultid=mysqli_query($con,$sqlid) or die("Failed to query");
+            $rowid=mysqli_fetch_array($resultid);
+            $did=(String)((int)$rowid['DoctorID']+1);
 
             if(isset($_POST['email']) && isset($_POST['password'])) {
                 $fullname1 = $_POST['fullname'];
                 $email1 = $_POST['email'];
                 $password1 = $_POST['password'];
                 $gender1 = $_POST['gender'];
-                $dob1 = $_POST['dob'];
-                $bloodgroup1 = $_POST['blood_group'];
                 $phoneno1 = $_POST['phoneno'];
                 $address1 = $_POST['address'];
+                $qualification1 = $_POST['qualification'];
+                $specialization1 = $_POST['specialization'];
 
-                $sqlid="SELECT PatientID FROM `patient` order by PatientID desc limit 1;";
-                $resultid=mysqli_query($con,$sqlid) or die("Failed to query");
-                $rowid=mysqli_fetch_array($resultid);
-                $pid=(String)((int)$rowid['PatientID']+1);
-                if(!empty($fullname1) && !empty($email1) && !empty($password1) && !empty($gender1) && !empty($dob1) && !empty($bloodgroup1) && !empty($phoneno1) && is_numeric($phoneno1) && !empty($address1)) {
+                if(!empty($fullname1) && !empty($email1) && !empty($password1) && !empty($gender1) && !empty($phoneno1) && is_numeric($phoneno1) && !empty($address1) && !empty($qualification1) && !empty($specialization1)) {
 
-                    $sql="select * from patient_login where email='$email1'";
+                    $sql="select * from doctor_login where email='$email1'";
                     $result=mysqli_query($con,$sql) or die("failed to query");
                     $row=mysqli_fetch_array($result);
 
@@ -67,12 +68,12 @@
                     }
 
                     else {
-                        $sql = "INSERT INTO patient_login VALUES ('$fullname1','$email1','$password1','$pid')";
-                        $sql1 = "INSERT INTO patient VALUES ('$fullname1','$email1','$gender1','$dob1','$bloodgroup1',$phoneno1,'$address1','$pid')";
+                        $sql = "INSERT INTO doctor_login VALUES ('$fullname1','$email1','$password1','$did')";
+                        $sql1 = "INSERT INTO doctor VALUES ('$fullname1','$email1',$phoneno1,'$qualification1','$specialization1','$address1','$gender1','$did')";
 
-                        if ((mysqli_query($con,$sql1) === TRUE) && (mysqli_query($con,$sql) === TRUE)) {
+                        if ((mysqli_query($con,$sql) === TRUE) && (mysqli_query($con,$sql1))) {
                             $_SESSION['email']=$email1;
-                            header('Location:DemoHomePagePatient.php');
+                            header('Location:DemoHomePageDoctor.php');
                         }
                         else {
                             echo "Error: " . $sql . "<br>" . $sql1;
@@ -107,9 +108,9 @@
                                     </div>
                                 </div>
                                 <div class="form-bottom">
-                                    <form role="form" action="<?php 'justRegister.php'; ?>" method="post" class="registration-form">
+                                    <form role="form" action="<?php 'doctorregister.php'; ?>" method="post" class="registration-form">
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-first-name">Name</label>
+                                            <label class="sr-only" for="form-first-name">First name</label>
                                             <input type="text" name="fullname" placeholder="Full name..." class="form-first-name form-control" id="form-first-name">
                                         </div>
                                         <div class="form-group">
@@ -130,32 +131,32 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label class="sr-only" for="form-first-name">Blood Group</label>
-                                         <!--   <input type="text" name="blood_group" placeholder="Blood Group..." class="form-first-name form-control" id="form-first-name">  -->
-                                            <select name="blood_group" style='width:100px'>
+                                            <label class="sr-only" for="form-mbnumber">Mobile Number</label>
+                                            <input type="text" name="phoneno" placeholder="Mobile Number..." class="form-email form-control" id="form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-address">Address</label>
+                                            <input type="text" name="address" placeholder="Address..." class="form-email form-control" id="form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-email">Qualification</label>
+                                            <input type="text" name="qualification" placeholder="Qualification..." class="form-email form-control" id="form-email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="form-email">Specialization</label>
+                                         <!--   <input type="text" name="specialization" placeholder="Specialization..." class="form-email form-control" id="form-email">  -->
+                                            <select name="specialization" style='width:250px'>
                                               <!--<option selected="selected" class="s">Enter city</option>-->
-                                              <option value="A+">A+</option>
-                                              <option value="A-">A-</option>
-                                              <option value="B+">B+</option>
-                                              <option value="B-">B-</option>
-                                              <option value="AB+">AB+</option>
-                                              <option value="AB-">AB-</option>
-                                              <option value="O+">O+</option>
-                                              <option value="O-">O-</option>
+                                              <option value="Dentist">Dentist</option>
+                                              <option value="Gynecologist/Obstetrician">Gynecologist/Obstetrician</option>
+                                              <option value="General Physician">General Physician</option>
+                                              <option value="Dermatologist">Dermatologist</option>
+                                              <option value="Ear-Nose-Throat (ENT) Specialist">Ear-Nose-Throat (ENT) Specialist</option>
+                                              <option value="Homeopath">Homeopath</option>
+                                              <option value="Ayurveda">Ayurveda</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="form-first-name">D.O.B.</label>
-                                            <input type="date" name="dob" placeholder="D.O.B." class="form-first-name form-control" id="form-first-name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="form-first-name">Phone Number</label>
-                                            <input type="text" name="phoneno" placeholder="PhoneNo..." class="form-first-name form-control" id="form-first-name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="form-first-name">Address</label>
-                                            <input type="text" name="address" placeholder="Address..." class="form-first-name form-control" id="form-first-name">
-                                        </div>
+
                                         <button type="submit" class="btn">Sign me up!</button>
                                     </form>
                                 </div>
