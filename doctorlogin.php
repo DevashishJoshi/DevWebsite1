@@ -47,13 +47,13 @@
                 $password1 = $_POST['password'];
 
                 if(!empty($_POST['email']) && !empty($_POST['password'])) {
-                    $sql="select * from patient_login where email='$email1' and password='$password1';";
-                    $result=mysqli_query($con,$sql) or die ("failed to query");
+                    $sql="select * from doctor_login where email='$email1' and password='$password1';";
+                    $result=mysqli_query($con,$sql) or die("failed to query");
                     $row=mysqli_fetch_array($result);
 
                     if($row['Email'] == $email1 && $row['Password'] == $password1){
                         $_SESSION['email']=$email1;
-                        header('Location:DemoHomePagePatient.php');
+                        header('Location:DemoHomePageDoctor.php');
                     }
                     else
                             $wrongCred=true;
@@ -80,14 +80,14 @@
                                     <div class="form-top-left">
                                         <h3>Login to our site</h3>
                                         <?php if($wrongCred) echo "<font color='red'>Incorrect details</font></br>"; ?>
-                                        <p>Enter username and password to log on:</p>
+                                        <p>Enter Email and Password to log on:</p>
                                     </div>
                                     <div class="form-top-right">
                                         <i class="fa fa-key"></i>
                                     </div>
                                 </div>
                                 <div class="form-bottom">
-                                    <form role="form" action="<?php 'justLogin.php'; ?>" method="post" class="login-form">
+                                    <form role="form" action="<?php 'test.php'; ?>" method="post" class="login-form">
                                         <div class="form-group">
                                             <label class="sr-only" for="form-username">Email</label>
                                             <input type="text" name="email" placeholder="Email..." class="form-username form-control" id="form-username">
@@ -97,6 +97,9 @@
                                             <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
                                         </div>
                                         <button type="submit" class="btn">Sign in!</button>
+                                      </br>
+                                      </br>
+                                      <li><a href="doctorregister.php">Sign Up?</a></li>
                                     </form>
                                 </div>
                             </div>
